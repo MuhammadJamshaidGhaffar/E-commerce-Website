@@ -1,0 +1,13 @@
+npx create-next-app@latest --typescript
+tailwind css
+
+---- Vs Code plugins  -------
+prettier -- format on save [enabled] 
+eslint
+ES7 React/Redux/GraphQL/React-Native snippets
+Tailwind CSS IntelliSense
+
+-------------------------------------
+inside .eslintrc.json
+"extends": ["eslint:recommended", more options]
+
