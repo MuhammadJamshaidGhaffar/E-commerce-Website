@@ -1,7 +1,14 @@
+import ProductItem from "@/components/ProductItem";
+import data from "@/utils/data";
+
 export default function Home() {
   return (
     <>
-      <div className="text-3xl font-sans font-bold">Next js app</div>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 ">
+        {data.map((product) => (
+          <ProductItem product={product} key={product.id} />
+        ))}
+      </div>
     </>
   );
 }
