@@ -72,6 +72,18 @@ const data: Data[] = [
     countInStock: 20,
     description: "A popular shirt, cool and gracious",
   },
+  {
+    name: "Casual Red Shirt",
+    id: "6",
+    category: "shirt",
+    image: "/images/red_shirt.jpg",
+    price: 10,
+    brand: "Polo Assn",
+    rating: 4.1,
+    numReviews: 100,
+    countInStock: 20,
+    description: "A popular shirt, cool and gracious",
+  },
 ];
 
 export default data;

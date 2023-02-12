@@ -1,11 +1,13 @@
 import React from "react";
 import type { Data } from "@/utils/data";
 import Link from "next/link";
-import Image from "next/image";
-import { AddToCartHook } from "@/functions/addToCart";
+import { useDispatch } from "react-redux";
+import { incItem } from "@/store/reducer";
+import { useRouter } from "next/router";
 
 export default function ProductItem({ product }: { product: Data }) {
-  const addToCart = AddToCartHook(product.id);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   return (
     <div className="card">
@@ -26,9 +28,10 @@ export default function ProductItem({ product }: { product: Data }) {
         <button
           className="primary-button"
           type="button"
-          onClick={
-            addToCart ? addToCart : () => console.log("Product not found")
-          }
+          onClick={() => {
+            dispatch(incItem(product.id));
+            router.push("/cart");
+          }}
         >
           Add to cart
         </button>

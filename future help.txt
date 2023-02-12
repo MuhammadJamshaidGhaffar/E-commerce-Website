@@ -1,5 +1,7 @@
 npx create-next-app@latest --typescript
 tailwind css
+js-cookie
+redux-persist
 
 ---- Vs Code plugins  -------
 prettier -- format on save [enabled] 
