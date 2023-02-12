@@ -1,14 +1,14 @@
 export type Data = {
-  name: String;
-  id: String;
-  category: String;
-  image: String;
-  price: Number;
-  brand: String;
-  rating: Number;
-  numReviews: Number;
-  countInStock: Number;
-  description: String;
+  name: string;
+  id: string;
+  category: string;
+  image: string;
+  price: number;
+  brand: string;
+  rating: number;
+  numReviews: number;
+  countInStock: number;
+  description: string;
 };
 
 const data: Data[] = [
@@ -26,7 +26,7 @@ const data: Data[] = [
   },
   {
     name: "Polo Shirt For Men",
-    id: "1",
+    id: "2",
     category: "shirt",
     image: "/images/polo_shirt.webp",
     price: 20,
@@ -38,7 +38,7 @@ const data: Data[] = [
   },
   {
     name: "Plain Dress Shirt",
-    id: "2",
+    id: "3",
     category: "shirt",
     image: "/images/plain_shirt.webp",
     price: 15,
@@ -50,7 +50,7 @@ const data: Data[] = [
   },
   {
     name: "Plain Dress Shirt",
-    id: "2",
+    id: "4",
     category: "shirt",
     image: "/images/white_shirt.jpg",
     price: 15,
@@ -62,7 +62,7 @@ const data: Data[] = [
   },
   {
     name: "Men Shirt",
-    id: "3",
+    id: "5",
     category: "shirt",
     image: "/images/men_shirt.jpg",
     price: 25,

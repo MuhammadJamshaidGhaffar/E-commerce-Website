@@ -1,6 +1,9 @@
 import Head from "next/head";
 import React from "react";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { selectCart } from "@/store/store";
+import { CartType, getCartItemsLength } from "@/store/reducer";
 
 export default function Layout({
   title,
@@ -9,6 +12,9 @@ export default function Layout({
   title?: String;
   children: JSX.Element;
 }) {
+  const cart: CartType[] = useSelector(selectCart);
+  const cartItemsLength = getCartItemsLength(cart);
+
   return (
     <>
       <Head>
@@ -25,7 +31,17 @@ export default function Layout({
             </Link>
             <div className="flex">
               <Link href="/cart" className="p-2">
-                Cart
+                Cart{" "}
+                {cartItemsLength > 0 ? (
+                  <span
+                    className="ml-1 rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white"
+                    style={{ color: "white" }}
+                  >
+                    {getCartItemsLength(cart)}
+                  </span>
+                ) : (
+                  ""
+                )}
               </Link>
               <Link href="/cart" className="p-2">
                 Login

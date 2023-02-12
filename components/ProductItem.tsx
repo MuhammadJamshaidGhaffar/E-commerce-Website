@@ -2,8 +2,11 @@ import React from "react";
 import type { Data } from "@/utils/data";
 import Link from "next/link";
 import Image from "next/image";
+import { AddToCartHook } from "@/functions/addToCart";
 
 export default function ProductItem({ product }: { product: Data }) {
+  const addToCart = AddToCartHook(product.id);
+
   return (
     <div className="card">
       <Link href={`/product/${product.id}`}>
@@ -20,7 +23,13 @@ export default function ProductItem({ product }: { product: Data }) {
         </Link>
         <p className="mb-2">{product.brand}</p>
         <p className="mb-2">{product.price}</p>
-        <button className="primary-button" type="button">
+        <button
+          className="primary-button"
+          type="button"
+          onClick={
+            addToCart ? addToCart : () => console.log("Product not found")
+          }
+        >
           Add to cart
         </button>
       </div>
