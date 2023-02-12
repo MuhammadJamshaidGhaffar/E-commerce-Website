@@ -1,4 +1,6 @@
-export type Data = {
+import bycrypt from "bcryptjs";
+
+export type ProductType = {
   name: string;
   id: string;
   category: string;
@@ -11,7 +13,14 @@ export type Data = {
   description: string;
 };
 
-const data: Data[] = [
+export type UserType = {
+  name: string;
+  email: string;
+  password: string;
+  isAdmin: boolean;
+};
+
+export const products: ProductType[] = [
   {
     name: "Polo Shirt For Men",
     id: "1",
@@ -86,4 +95,17 @@ const data: Data[] = [
   },
 ];
 
-export default data;
+export const users: UserType[] = [
+  {
+    name: "Muhammad Jamshaid Ghaffar",
+    password: bycrypt.hashSync("123456"),
+    email: "muhammadjamshaid89@gmail.com",
+    isAdmin: true,
+  },
+  {
+    name: "test user",
+    password: bycrypt.hashSync("123456"),
+    email: "test@gmail.com",
+    isAdmin: true,
+  },
+];

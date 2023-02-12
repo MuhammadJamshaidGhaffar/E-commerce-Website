@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { Data } from "@/utils/data";
-import data from "@/utils/data";
+import type { ProductType } from "@/utils/data";
+import { products } from "@/utils/data";
 
-export type CartType = Data & {
+export type CartType = ProductType & {
   quantity: number;
 };
 
@@ -36,14 +36,14 @@ const cartSlice = createSlice({
       } else {
         console.log("item in cart not found");
       }
-      const product = data.find((item) => item.id == productId);
+      const product = products.find((item) => item.id == productId);
       if (product) {
         product.countInStock += 1;
       }
     },
     incItem: ({ cartItems }, { payload: productId }: { payload: string }) => {
       // console.log("[incItem]", state.cartItems);
-      const product = data.find((item) => item.id == productId);
+      const product = products.find((item) => item.id == productId);
       if (product) {
         if (product.countInStock > 0) {
           product.countInStock -= 1;
@@ -67,7 +67,7 @@ const cartSlice = createSlice({
       const cartItemIndex = cartItems.findIndex((item) => item.id == productId);
       if (cartItemIndex != -1) {
         // if found then find the product in database
-        const product = data.find((item) => item.id == item.id);
+        const product = products.find((item) => item.id == item.id);
         if (product) {
           // if found then increase the stock
           product.countInStock += cartItems[cartItemIndex].quantity;

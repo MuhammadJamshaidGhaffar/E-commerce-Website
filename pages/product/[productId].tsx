@@ -1,4 +1,4 @@
-import data from "@/utils/data";
+import { products } from "@/utils/data";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -10,9 +10,11 @@ import { incItem } from "@/store/reducer";
 export default function ProductPage() {
   const router = useRouter();
 
-  const product = data.find((product) => product.id == router.query.productId);
+  const product = products.find(
+    (product) => product.id == router.query.productId
+  );
   if (!product) {
-    return <div>The product you're looking for doesn't exits</div>;
+    return <div>The product you&apos;re looking for doesn&apos;t exits</div>;
   }
 
   const dispatch = useDispatch();

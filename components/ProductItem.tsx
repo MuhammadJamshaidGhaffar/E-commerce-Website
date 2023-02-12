@@ -1,11 +1,11 @@
 import React from "react";
-import type { Data } from "@/utils/data";
+import type { ProductType } from "@/utils/data";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { incItem } from "@/store/reducer";
 import { useRouter } from "next/router";
 
-export default function ProductItem({ product }: { product: Data }) {
+export default function ProductItem({ product }: { product: ProductType }) {
   const dispatch = useDispatch();
   const router = useRouter();
 

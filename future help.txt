@@ -2,6 +2,8 @@ npx create-next-app@latest --typescript
 tailwind css
 js-cookie
 redux-persist
+mongoose
+bycryptjs
 
 ---- Vs Code plugins  -------
 prettier -- format on save [enabled] 
