@@ -43,7 +43,7 @@ export default function Layout({
                   ""
                 )}
               </Link>
-              <Link href="/cart" className="p-2">
+              <Link href="/login" className="p-2">
                 Login
               </Link>
             </div>

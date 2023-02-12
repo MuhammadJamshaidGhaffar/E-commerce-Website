@@ -61,7 +61,7 @@ export default function cart() {
                         &nbsp;{product.name}
                       </Link>
                     </td>
-                    {/* <td className="p-5 text-right">{product.quantity}</td> */}
+
                     <td className="p-5 flex flex-row-reverse">
                       <div className="flex flex-col">
                         <button>
@@ -116,7 +116,7 @@ export default function cart() {
                 <button
                   className="primary-button w-full"
                   onClick={() => {
-                    router.push("/shipping");
+                    router.push("/login?redirect=/shipping");
                   }}
                 >
                   Checkout
