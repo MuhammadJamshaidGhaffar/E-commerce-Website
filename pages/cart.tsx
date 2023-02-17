@@ -15,12 +15,14 @@ import {
   XCircleIcon,
 } from "@heroicons/react/20/solid";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 export default function cart() {
   const router = useRouter();
   const cart = useSelector(selectCart);
   const cartLength = getCartItemsLength(cart);
   const dispatch = useDispatch();
+  const { data: session } = useSession();
 
   return (
     <div>
@@ -116,7 +118,8 @@ export default function cart() {
                 <button
                   className="primary-button w-full"
                   onClick={() => {
-                    router.push("/login?redirect=/shipping");
+                    if (session?.user) router.push("/shipping");
+                    else router.push("/login?redirect=/shipping");
                   }}
                 >
                   Checkout

@@ -7,7 +7,18 @@ export type CartType = ProductType & {
 };
 
 const cartItems: CartType[] = [];
-const initialState = { cartItems };
+const initialState = {
+  cartItems,
+  ShippingAddress: {
+    fullName: "",
+    address: "",
+    city: "",
+    postalCode: "",
+    country: "",
+  },
+  PaymentMethod: "",
+};
+export type ShippingAddressType = typeof initialState.ShippingAddress;
 
 const cartSlice = createSlice({
   name: "cart",
@@ -78,10 +89,27 @@ const cartSlice = createSlice({
         console.log("product not found in cart");
       }
     },
+    deleteCart: (state) => {
+      console.log("deleting cart");
+      return initialState;
+    },
+    setShippingAddress: (
+      state,
+      { payload }: { payload: ShippingAddressType }
+    ) => {
+      state.ShippingAddress = payload;
+    },
   },
 });
 
-export const { addItem, incItem, decItem, removeItem } = cartSlice.actions;
+export const {
+  addItem,
+  incItem,
+  decItem,
+  removeItem,
+  deleteCart,
+  setShippingAddress,
+} = cartSlice.actions;
 export default cartSlice.reducer;
 
 export const getCartItemsLength = (cart: CartType[]) =>

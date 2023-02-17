@@ -4,6 +4,8 @@ js-cookie
 redux-persist
 mongoose
 bycryptjs
+headlessui
+heroicons
 
 ---- Vs Code plugins  -------
 prettier -- format on save [enabled] 

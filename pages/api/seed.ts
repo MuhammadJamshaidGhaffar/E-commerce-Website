@@ -12,7 +12,7 @@ export default async function handler(
   await db.connect();
   const query = req.query;
   if (query.users == "true") {
-    console.log("Seeding db with users");
+    console.log("Seeding db with users", users);
     console.log(await UserModel.insertMany(users));
     response += "\nDatabase seeded with users succesfully";
   }

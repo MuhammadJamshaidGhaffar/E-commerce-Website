@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { toast } from "react-toastify";
+import { getError } from "@/utils/get-error";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required*"),
@@ -12,6 +17,15 @@ const loginSchema = Yup.object().shape({
 });
 
 export default function login() {
+  const { data: session } = useSession();
+  const router = useRouter();
+  const { redirect } = router.query;
+
+  useEffect(() => {
+    if (session?.user) {
+      router.push(redirect || "/");
+    }
+  }, [router, session, redirect]);
   return (
     <Formik
       initialValues={{
@@ -19,8 +33,20 @@ export default function login() {
         password: "",
       }}
       validationSchema={loginSchema}
-      onSubmit={(values) => {
-        console.log(values);
+      onSubmit={async ({ email, password }) => {
+        try {
+          const result = await signIn("credentials", {
+            redirect: false,
+            email,
+            password,
+          });
+          if (result?.error) {
+            toast.error(result.error);
+          }
+          if (result.ok) toast.success("Login Succesful!");
+        } catch (error) {
+          toast.error(getError(error));
+        }
       }}
     >
       {({ errors, touched }) => (
@@ -41,7 +67,9 @@ export default function login() {
             )}
           </div>
           <div className="mb-4">
-            <button className="primary-button">Login</button>
+            <button className="primary-button" type="submit">
+              Login
+            </button>
           </div>
           <div className="mb-4">
             Don&apos;t have an account? &nbsp;{" "}
