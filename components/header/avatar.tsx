@@ -30,7 +30,7 @@ export default function AvatarMenu() {
         />
       </Menu.Button>
 
-      <Menu.Items className="absolute right-0 w-56 origin-top-right bg-white shadow-lg">
+      <Menu.Items className="absolute right-0 w-56 origin-top-right bg-white shadow-lg z-10">
         {menuItems.map((item) => (
           <Menu.Item key={item.label}>
             {({ active }) =>

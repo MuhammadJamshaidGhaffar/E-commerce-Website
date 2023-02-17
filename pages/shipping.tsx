@@ -10,6 +10,7 @@ import StepConnector, {
 import { StepIconProps } from "@mui/material/StepIcon";
 import { useState } from "react";
 import ShippingAddress from "@/components/ShippingAddress";
+import PaymentMethod from "@/components/PaymentMethod";
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -89,7 +90,8 @@ export default function Shipping() {
           </Step>
         ))}
       </Stepper>
-      <ShippingAddress step={step} updateStep={updateStep} />
+      {step == 1 && <ShippingAddress step={step} updateStep={updateStep} />}
+      {step == 2 && <PaymentMethod step={step} updateStep={updateStep} />}
     </div>
   );
 }

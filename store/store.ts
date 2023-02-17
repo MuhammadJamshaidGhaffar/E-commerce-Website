@@ -22,3 +22,4 @@ export const persistor = persistStore(store);
 export const selectCart = (state): CartType[] => state.cart.cartItems;
 export const selectShippingAddress = (state): ShippingAddressType =>
   state.cart.ShippingAddress;
+export const selectPaymentMethod = (state): string => state.cart.paymentMethod;

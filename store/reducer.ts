@@ -16,7 +16,7 @@ const initialState = {
     postalCode: "",
     country: "",
   },
-  PaymentMethod: "",
+  paymentMethod: "",
 };
 export type ShippingAddressType = typeof initialState.ShippingAddress;
 
@@ -99,6 +99,9 @@ const cartSlice = createSlice({
     ) => {
       state.ShippingAddress = payload;
     },
+    setPaymentMethod: (state, { payload }: { payload: string }) => {
+      state.paymentMethod = payload;
+    },
   },
 });
 
@@ -109,6 +112,7 @@ export const {
   removeItem,
   deleteCart,
   setShippingAddress,
+  setPaymentMethod,
 } = cartSlice.actions;
 export default cartSlice.reducer;
 
