@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { ProductTypeMongo } from "@/utils/data";
 import { toastFunc } from "@/functions/toast";
+import { getError } from "@/utils/get-error";
 
 export type CartType = ProductTypeMongo & {
   quantity: number;
@@ -111,6 +112,7 @@ export const {
   incItem,
   decItem,
   removeItem,
+  deleteCart,
   resetCart,
   setShippingAddress,
   setPaymentMethod,
@@ -131,7 +133,7 @@ export async function incItemAsync(
     ).json();
     if (!product) throw new Error("Product not found");
   } catch (err) {
-    toastFunc.error(err.message);
+    toastFunc.error(getError(err));
   }
 
   console.log(product);

@@ -1,6 +1,36 @@
 import mongoose from "mongoose";
 
-export const orderSchema = new mongoose.Schema(
+export type orderType = {
+  user: mongoose.Schema.Types.ObjectId;
+  orderItems: {
+    name: string;
+    category: string;
+    image: string;
+    price: number;
+    brand: string;
+    _id: string;
+    quantity: number;
+  }[];
+
+  shippingAddress: {
+    fullName: string;
+    address: string;
+    city: string;
+    postalCode: string;
+    country: string;
+  };
+  paymentMethod: string;
+  itemsPrice: number;
+  shippingPrice: number;
+  taxPrice: number;
+  totalPrice: number;
+  isPaid: boolean;
+  isDelivered: boolean;
+  paidAt: Date;
+  deliveredAt: Date;
+};
+
+export const orderSchema = new mongoose.Schema<orderType>(
   {
     user: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true },
     orderItems: [
@@ -10,6 +40,8 @@ export const orderSchema = new mongoose.Schema(
         image: { type: String, required: true },
         price: { type: Number, required: true },
         brand: { type: String, required: true },
+        _id: { type: String, required: true },
+        quantity: { type: Number, required: true },
       },
     ],
 
@@ -28,7 +60,7 @@ export const orderSchema = new mongoose.Schema(
     isPaid: { type: Boolean, required: true, default: false },
     isDelivered: { type: Boolean, required: true, default: false },
     paidAt: { type: Date },
-    DeliveredAt: { type: Date },
+    deliveredAt: { type: Date },
   },
 
   {

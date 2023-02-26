@@ -5,7 +5,6 @@ import {
   selectShippingAddress,
 } from "@/store/store";
 import { getError } from "@/utils/get-error";
-import productModel from "@/utils/product";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -13,7 +12,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import EmptyCart from "./EmptyCart";
 import { useState } from "react";
-import { resetCart } from "@/store/reducer";
+import { deleteCart } from "@/store/reducer";
 
 type props = {
   step: number;
@@ -66,7 +65,7 @@ export default function PlaceOrder({ step, updateStep }: props) {
           }),
         })
       ).json();
-      dispatch(resetCart());
+      dispatch(deleteCart());
       router.push(`/order/${order._id}`);
       setLoading(false);
     } catch (err) {

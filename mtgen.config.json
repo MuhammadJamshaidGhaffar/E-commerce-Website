@@ -1,0 +1,4 @@
+{
+  "output": "./types/mongoose-types.ts",
+  "project": "./tsconfig.json"
+}

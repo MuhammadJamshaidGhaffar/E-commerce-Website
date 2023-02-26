@@ -7,17 +7,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log(req.body);
-  await db.connect();
   const session = await getSession({ req });
   if (!session) return res.status(401).send("Signin Required");
-  const { user } = session;
-  if (!user) return res.status(401).send("Signin Required");
-  const newOrder = new orderModel({
-    ...req.body,
-    user: user._id,
-  });
 
-  const order = await newOrder.save();
-  res.status(201).send(order);
+  await db.connect();
+  const order = await orderModel.findById(req.query.id);
+  await db.disconnect();
+  res.send(order);
 }
