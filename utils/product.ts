@@ -1,10 +1,9 @@
 import mongoose from "mongoose";
-import { uuid } from "uuidv4";
+import { ProductType } from "./data";
 
-const productSchema = new mongoose.Schema(
+export const productSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
-    id: { type: String, required: true, default: uuid() },
     category: { type: String, required: true },
     image: { type: String, required: true },
     price: { type: Number, required: true },
@@ -19,7 +18,7 @@ const productSchema = new mongoose.Schema(
   }
 );
 
-const productModel =
+const productModel: ReturnType<typeof mongoose.model<typeof productSchema>> =
   mongoose.models.product || mongoose.model("product", productSchema);
 
 export default productModel;

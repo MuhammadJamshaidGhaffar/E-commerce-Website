@@ -8,6 +8,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import { SessionProvider, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { CircularProgress } from "@mui/material";
+import { ApolloProvider } from "@apollo/client";
+import { client } from "@/Apollo-client";
 
 export default function App({
   Component,
@@ -15,21 +17,23 @@ export default function App({
 }: AppProps) {
   return (
     <>
-      <SessionProvider session={session}>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <Layout>
-              {Component.auth ? (
-                <Auth>
+      <ApolloProvider client={client}>
+        <SessionProvider session={session}>
+          <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+              <Layout>
+                {Component.auth ? (
+                  <Auth>
+                    <Component {...pageProps} />
+                  </Auth>
+                ) : (
                   <Component {...pageProps} />
-                </Auth>
-              ) : (
-                <Component {...pageProps} />
-              )}
-            </Layout>
-          </PersistGate>
-        </Provider>
-      </SessionProvider>
+                )}
+              </Layout>
+            </PersistGate>
+          </Provider>
+        </SessionProvider>
+      </ApolloProvider>
     </>
   );
 }

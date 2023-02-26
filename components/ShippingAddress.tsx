@@ -33,7 +33,7 @@ export default function ShippingAddress({ step, updateStep }: props) {
       }}
     >
       {({ errors, touched }) => (
-        <Form className="mx-auto max-w-screen-md">
+        <Form className="my-2 mx-auto max-w-screen-md">
           <h1 className="mb-4 text-xl">Shipping Address</h1>
           <div className="mb-4">
             <label htmlFor="fullName">Full Name</label>

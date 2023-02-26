@@ -17,3 +17,31 @@ Tailwind CSS IntelliSense
 inside .eslintrc.json
 "extends": ["eslint:recommended", more options]
 
+***********************************************************************************************************************
+-----                       how to setup typegraphql and prisma integration                                     -------
+***********************************************************************************************************************
+
+// Reference article = https://dev.to/prisma/prototyping-a-crud-api-with-typegraphql-and-prisma-for-your-database-424c
+
+npm install apollo-server-micro type-graphql reflect-metadata class-validator
+
+//  Added this line in schema.prisma 
+                       " generator typegraphql {
+                        provider = "typegraphql-prisma"
+                        output = "../node_modules/@generated/typegraphql-prisma"
+                        } "
+
+npm install --save-dev typegraphql-prisma
+npm install graphql-type-json graphql-fields
+npm install --save-dev @types/graphql-fields
+
+npx prisma generate
+
+Added this line in nextconfig.json
+webpack(config) {
+    config.experiments = { ...config.experiments, topLevelAwait: true };
+    return config;
+  },
+
+//  now see the /api/graphql.ts . this is the fiel serving as a graphql api
+

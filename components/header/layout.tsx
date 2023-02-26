@@ -29,13 +29,13 @@ export default function Layout({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ToastContainer position="bottom-center" limit={1} />
-      <div className="flex flex-col min-h-screen justify-between">
+      <div className="flex flex-col min-h-screen justify-between ">
         <header>
-          <nav className="flex justify-between h-12 px-4 items-center shadow-md">
+          <nav className="flex justify-between h-12 px-4 items-center shadow-md fixed top-30 w-full bg-white">
             <Link className="text-lg font-bold" href="/">
               Jam Store
             </Link>
-            <div className="flex">
+            <div className="flex ">
               <Link href="/cart" className="p-2">
                 Cart{" "}
                 {cartItemsLength > 0 ? (
@@ -53,7 +53,7 @@ export default function Layout({
                 <div role="status">
                   <svg
                     aria-hidden="true"
-                    class="inline w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-yellow-400"
+                    className="inline w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-yellow-400"
                     viewBox="0 0 100 101"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +67,7 @@ export default function Layout({
                       fill="currentFill"
                     />
                   </svg>
-                  <span class="sr-only">Loading...</span>
+                  <span className="sr-only">Loading...</span>
                 </div>
               ) : session?.user ? (
                 <Avatar />
@@ -79,7 +79,7 @@ export default function Layout({
             </div>
           </nav>
         </header>
-        <main className="container m-auto px-4 mt-4">{children}</main>
+        <main className="container m-auto px-4 mt-4 pt-20">{children}</main>
         <footer className="flex justify-center items-center h-10 shadow-inner">
           Copyright Jamshaid © 2023 Jam Store
         </footer>

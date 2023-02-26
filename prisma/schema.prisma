@@ -1,0 +1,28 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_URI")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator typegraphql {
+  provider = "typegraphql-prisma"
+  output = "../node_modules/@generated/typegraphql-prisma"
+}
+
+model Product {
+    id    String @id @default(auto()) @map("_id") @db.ObjectId
+    name String
+    category String
+    image String
+    price Float
+    brand String
+    rating Float
+    numReviews Int
+    countInStock Int
+    description String
+  }
+
+

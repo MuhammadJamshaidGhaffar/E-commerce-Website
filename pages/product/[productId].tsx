@@ -5,18 +5,19 @@ import { useRouter } from "next/router";
 import React from "react";
 import Head from "next/head";
 import { useDispatch } from "react-redux";
-import { incItem } from "@/store/reducer";
+import { incItemAsync } from "@/store/reducer";
+import productModel from "@/utils/product";
+import db from "@/utils/db";
+import { GetServerSidePropsContext } from "next";
+import { ProductTypeMongo } from "..";
 
-export default function ProductPage() {
-  const router = useRouter();
-
-  const product = products.find(
-    (product) => product.id == router.query.productId
-  );
+const ProductPage: React.FC<{
+  product: ProductTypeMongo;
+}> = ({ product }) => {
   if (!product) {
     return <div>The product you&apos;re looking for doesn&apos;t exits</div>;
   }
-
+  console.log(product);
   const dispatch = useDispatch();
   return (
     <>
@@ -59,8 +60,7 @@ export default function ProductPage() {
               className="primary-button w-full"
               type="button"
               onClick={() => {
-                dispatch(incItem(product.id));
-                router.push("/cart");
+                incItemAsync(product._id, dispatch);
               }}
             >
               Add to cart
@@ -70,4 +70,24 @@ export default function ProductPage() {
       </div>
     </>
   );
+};
+
+export default ProductPage;
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  await db.connect();
+
+  if (!context?.params?.productId)
+    return {
+      notFound: true,
+    };
+
+  const product = db.convertDocToObj(
+    await productModel.findOne({ _id: context.params.productId }).lean()
+  );
+  return {
+    props: {
+      product,
+    },
+  };
 }

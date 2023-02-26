@@ -13,5 +13,6 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-const UserModel = mongoose.models.user || mongoose.model("user", userSchema);
+const UserModel: ReturnType<typeof mongoose.model<typeof userSchema>> =
+  mongoose.models.user || mongoose.model("user", userSchema);
 export default UserModel;

@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { ProductType } from "@/utils/data";
-import { products } from "@/utils/data";
+import { useDispatch } from "react-redux";
+import { ProductTypeMongo } from "@/utils/data";
+import { toastFunc } from "@/functions/toast";
 
-export type CartType = ProductType & {
+export type CartType = ProductTypeMongo & {
   quantity: number;
 };
 
@@ -24,50 +25,51 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addItem: ({ cartItems }, { payload }: { payload: CartType }) => {
-      // find if item is in the list
-      const productIndex = cartItems.findIndex((item) => item.id == payload.id);
+    // addItem: async ({ cartItems }, { payload }: { payload: CartType }) => {
+    //   // find if item is already in the cart list
+    //   const productIndex = cartItems.findIndex((item) => item.id == payload.id);
 
-      // if item is not in the list then push the product in cart
-      if (productIndex == -1) {
-        state.push(payload);
-      }
-      // else update the qunatity
-      else cartItems[productIndex].quantity += payload.quantity;
-    },
+    //   // if item is not in the cart list then push the product in cart
+    //   if (productIndex == -1) {
+    //     state.push(payload);
+    //   }
+    //   // else update the qunatity
+    //   else cartItems[productIndex].quantity += payload.quantity;
+    // },
     decItem: ({ cartItems }, { payload: productId }: { payload: string }) => {
       const cartProductIndex = cartItems.findIndex(
-        (item) => item.id == productId
+        (item) => item._id == productId
       );
       if (cartProductIndex != -1) {
         cartItems[cartProductIndex].quantity -= 1;
         if (cartItems[cartProductIndex].quantity == 0) {
           cartItems.splice(cartProductIndex, 1);
+          toastFunc.success("Product completed removed");
         }
       } else {
-        console.log("item in cart not found");
-      }
-      const product = products.find((item) => item.id == productId);
-      if (product) {
-        product.countInStock += 1;
+        toastFunc.error("Product not found in cart");
       }
     },
-    incItem: ({ cartItems }, { payload: productId }: { payload: string }) => {
-      // console.log("[incItem]", state.cartItems);
-      const product = products.find((item) => item.id == productId);
-      if (product) {
-        if (product.countInStock > 0) {
-          product.countInStock -= 1;
-
-          const cartProduct = cartItems.find((item) => item.id == productId);
-          if (cartProduct) {
-            cartProduct.quantity += 1;
-          } else {
-            cartItems.push({ ...product, quantity: 1 });
-          }
+    incItem: (
+      { cartItems },
+      { payload: product }: { payload: ProductTypeMongo }
+    ) => {
+      const cartProduct = cartItems.find((item) => item._id == product._id);
+      if (cartProduct) {
+        if (cartProduct.quantity < product.countInStock) {
+          cartProduct.quantity += 1;
+          // toast.success("product added to cart successfully!");
+          toastFunc.success("product quantity increased by 1!");
         } else {
-          alert("Product out of stock");
+          toastFunc.error("Product out of stock!");
+          // toast.error("product out of stock");
+          // set the cart product quantity to max product in stock
+          // this is to ensure that cart does not contain items than the max available items
+          cartProduct.quantity = product.countInStock;
         }
+      } else {
+        cartItems.push({ ...product, quantity: 1 });
+        toastFunc.success("product added to cart successfully");
       }
     },
     removeItem: (
@@ -75,23 +77,19 @@ const cartSlice = createSlice({
       { payload: productId }: { payload: string }
     ) => {
       // find product in cart
-      const cartItemIndex = cartItems.findIndex((item) => item.id == productId);
+      const cartItemIndex = cartItems.findIndex(
+        (item) => item._id == productId
+      );
       if (cartItemIndex != -1) {
-        // if found then find the product in database
-        const product = products.find((item) => item.id == item.id);
-        if (product) {
-          // if found then increase the stock
-          product.countInStock += cartItems[cartItemIndex].quantity;
-        }
         // then remove the product from cart
         cartItems.splice(cartItemIndex, 1);
       } else {
-        console.log("product not found in cart");
+        toastFunc.error("Product not found in cart");
       }
     },
     deleteCart: (state) => {
       console.log("deleting cart");
-      return initialState;
+      return { ...state, cartItems: [] };
     },
     setShippingAddress: (
       state,
@@ -106,7 +104,7 @@ const cartSlice = createSlice({
 });
 
 export const {
-  addItem,
+  // addItem,
   incItem,
   decItem,
   removeItem,
@@ -118,3 +116,22 @@ export default cartSlice.reducer;
 
 export const getCartItemsLength = (cart: CartType[]) =>
   cart.reduce((a, b) => a + b.quantity, 0);
+
+export async function incItemAsync(
+  productId: string,
+  dispatch: ReturnType<typeof useDispatch>
+) {
+  let product = null;
+  try {
+    product = await (
+      await fetch(`/api/products/findone?_id=${productId}`)
+    ).json();
+    if (!product) throw new Error("Product not found");
+  } catch (err) {
+    toastFunc.error(err.message);
+  }
+
+  console.log(product);
+
+  dispatch(incItem(product));
+}

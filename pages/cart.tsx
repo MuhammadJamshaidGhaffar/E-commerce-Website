@@ -48,10 +48,10 @@ export default function cart() {
               </thead>
               <tbody>
                 {cart.map((product) => (
-                  <tr key={product.id} className="border-b">
+                  <tr key={product._id} className="border-b">
                     <td>
                       <Link
-                        href={`/product/${product.id}`}
+                        href={`/product/${product._id}`}
                         className="flex items-center"
                       >
                         <Image
@@ -70,7 +70,7 @@ export default function cart() {
                           <ArrowSmallUpIcon
                             className="h-5 w-5"
                             onClick={() => {
-                              dispatch(incItem(product.id));
+                              dispatch(incItem(product));
                             }}
                           ></ArrowSmallUpIcon>
                         </button>
@@ -78,7 +78,7 @@ export default function cart() {
                           <ArrowSmallDownIcon
                             className="h-5 w-5"
                             onClick={() => {
-                              dispatch(decItem(product.id));
+                              dispatch(decItem(product._id));
                             }}
                           ></ArrowSmallDownIcon>
                         </button>

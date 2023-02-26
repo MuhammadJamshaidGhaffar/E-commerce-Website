@@ -1,26 +1,23 @@
 import React from "react";
-import type { ProductType } from "@/utils/data";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
-import { incItem } from "@/store/reducer";
-import { useRouter } from "next/router";
+import { incItemAsync } from "@/store/reducer";
+import { ProductTypeMongo } from "@/utils/product";
 
-export default function ProductItem({ product }: { product: ProductType }) {
+const ProductItem: React.FC<{ product: ProductTypeMongo }> = ({ product }) => {
   const dispatch = useDispatch();
-  const router = useRouter();
 
   return (
     <div className="card">
-      <Link href={`/product/${product.id}`}>
+      <Link href={`/product/${product._id}`}>
         <img
           src={product.image}
           alt={product.name}
           className="rounded shadow h-60 mx-auto"
-          //   style={{ height: "60%" }}
         />
       </Link>
       <div className="flex flex-col justify-center items-center p-5">
-        <Link href={`/product/${product.id}`} className="text-lg">
+        <Link href={`/product/${product._id}`} className="text-lg">
           {product.name}
         </Link>
         <p className="mb-2">{product.brand}</p>
@@ -29,8 +26,7 @@ export default function ProductItem({ product }: { product: ProductType }) {
           className="primary-button"
           type="button"
           onClick={() => {
-            dispatch(incItem(product.id));
-            router.push("/cart");
+            incItemAsync(product._id, dispatch);
           }}
         >
           Add to cart
@@ -38,4 +34,6 @@ export default function ProductItem({ product }: { product: ProductType }) {
       </div>
     </div>
   );
-}
+};
+
+export default ProductItem;

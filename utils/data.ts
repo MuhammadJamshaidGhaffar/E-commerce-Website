@@ -2,7 +2,6 @@ import bycrypt from "bcryptjs";
 
 export type ProductType = {
   name: string;
-  id: string;
   category: string;
   image: string;
   price: number;
@@ -13,8 +12,13 @@ export type ProductType = {
   description: string;
 };
 
-export type UserType = {
+export type ProductTypeMongo = ProductType & {
   _id: string;
+  __v: number;
+  createdAt: string;
+  updatedAt: string;
+};
+export type UserType = {
   name: string;
   email: string;
   password: string;
@@ -22,10 +26,16 @@ export type UserType = {
   image: string;
 };
 
+export type UserTypeMongo = UserType & {
+  _id: string;
+  __v: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export const products: ProductType[] = [
   {
     name: "Polo Shirt For Men",
-    id: "1",
     category: "shirt",
     image: "/images/polo_shirt_1.jpg",
     price: 20,
@@ -37,7 +47,6 @@ export const products: ProductType[] = [
   },
   {
     name: "Polo Shirt For Men",
-    id: "2",
     category: "shirt",
     image: "/images/polo_shirt.webp",
     price: 20,
@@ -49,7 +58,6 @@ export const products: ProductType[] = [
   },
   {
     name: "Plain Dress Shirt",
-    id: "3",
     category: "shirt",
     image: "/images/plain_shirt.webp",
     price: 15,
@@ -61,7 +69,6 @@ export const products: ProductType[] = [
   },
   {
     name: "Plain Dress Shirt",
-    id: "4",
     category: "shirt",
     image: "/images/white_shirt.jpg",
     price: 15,
@@ -73,7 +80,6 @@ export const products: ProductType[] = [
   },
   {
     name: "Men Shirt",
-    id: "5",
     category: "shirt",
     image: "/images/men_shirt.jpg",
     price: 25,
@@ -85,7 +91,6 @@ export const products: ProductType[] = [
   },
   {
     name: "Casual Red Shirt",
-    id: "6",
     category: "shirt",
     image: "/images/red_shirt.jpg",
     price: 10,
