@@ -4,10 +4,10 @@ import { useSession, signOut } from "next-auth/react";
 import Avatar from "@mui/material/Avatar";
 import { useDispatch } from "react-redux";
 import type { Dispatch, AnyAction } from "@reduxjs/toolkit";
-import { deleteCart } from "@/store/reducer";
+import { resetCart } from "@/store/reducer";
 
 function handleLogout(dispatch: Dispatch<AnyAction>) {
-  dispatch(deleteCart());
+  dispatch(resetCart());
   signOut({ callbackUrl: "/" });
 }
 

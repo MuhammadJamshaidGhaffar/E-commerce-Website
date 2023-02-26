@@ -16,6 +16,7 @@ import {
 } from "@heroicons/react/20/solid";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
+import EmptyCart from "@/components/EmptyCart";
 
 export default function cart() {
   const router = useRouter();
@@ -28,12 +29,7 @@ export default function cart() {
     <div>
       <h1 className="mb-4 text-x1">Shopping Cart</h1>
       {cartLength === 0 ? (
-        <div>
-          Cart is Empty{"   "}
-          <Link href="/" className="primary-button">
-            Go shopping
-          </Link>
-        </div>
+        <EmptyCart />
       ) : (
         <div className="grid md:grid-cols-4 md:gap-5">
           <div className="overflow-x-auto md:col-span-3">

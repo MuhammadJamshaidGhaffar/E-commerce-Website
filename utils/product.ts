@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { ProductType } from "./data";
 
 export const productSchema = new mongoose.Schema(
   {

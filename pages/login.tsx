@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { getError } from "@/utils/get-error";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { toastFunc } from "@/functions/toast";
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required*"),
@@ -41,11 +42,11 @@ export default function login() {
             password,
           });
           if (result?.error) {
-            toast.error(result.error);
+            toastFunc.error(result.error);
           }
-          if (result.ok) toast.success("Login Succesful!");
+          if (result.ok) toastFunc.success("Login Succesful!");
         } catch (error) {
-          toast.error(getError(error));
+          toastFunc.error(getError(error));
         }
       }}
     >

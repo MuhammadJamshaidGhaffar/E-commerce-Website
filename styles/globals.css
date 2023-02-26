@@ -94,7 +94,7 @@ body {
 }
 
 a {
-  @apply text-blue-600 hover:text-blue-800;
+  @apply text-blue-600 hover:text-blue-800 hover:cursor-pointer;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -104,7 +104,7 @@ a {
 }
 
 .card {
-  @apply mb-5 block rounded-lg border border-gray-200 shadow-md;
+  @apply mb-5 block rounded-lg border border-gray-200 shadow-md h-fit;
 }
 
 .primary-button {

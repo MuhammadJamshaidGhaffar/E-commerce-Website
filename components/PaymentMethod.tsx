@@ -3,7 +3,7 @@ import {
   setShippingAddress,
   ShippingAddressType,
 } from "@/store/reducer";
-import { selectShippingAddress } from "@/store/store";
+import { selectPaymentMethod, selectShippingAddress } from "@/store/store";
 import { Formik, Form, Field } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
@@ -19,12 +19,14 @@ type props = {
 
 export default function PaymentMethod({ step, updateStep }: props) {
   const dispatch = useDispatch();
+  const selectedPaymentMethod = useSelector(selectPaymentMethod);
 
   return (
     <Formik
-      initialValues={{ paymentMethod: "" }}
+      initialValues={{ paymentMethod: selectedPaymentMethod }}
       validationSchema={PaymentMethodSchema}
       onSubmit={({ paymentMethod }) => {
+        console.log("Setting payment method", paymentMethod);
         dispatch(setPaymentMethod(paymentMethod));
         updateStep(step + 1);
       }}
@@ -34,7 +36,7 @@ export default function PaymentMethod({ step, updateStep }: props) {
           <h1 className="mb-4 text-xl">Payment Method</h1>
           {["Paypal", "Stripe", "CashOnDelivery"].map((payment) => (
             <div className="mb-4" key={payment}>
-              <label htmlFor="fullName">
+              <label htmlFor={payment}>
                 <Field
                   id={payment}
                   name="paymentMethod"

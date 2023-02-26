@@ -100,6 +100,9 @@ const cartSlice = createSlice({
     setPaymentMethod: (state, { payload }: { payload: string }) => {
       state.paymentMethod = payload;
     },
+    resetCart: (state) => {
+      return initialState;
+    },
   },
 });
 
@@ -108,7 +111,7 @@ export const {
   incItem,
   decItem,
   removeItem,
-  deleteCart,
+  resetCart,
   setShippingAddress,
   setPaymentMethod,
 } = cartSlice.actions;
