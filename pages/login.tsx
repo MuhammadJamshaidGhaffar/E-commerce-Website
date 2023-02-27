@@ -74,7 +74,7 @@ export default function login() {
           </div>
           <div className="mb-4">
             Don&apos;t have an account? &nbsp;{" "}
-            <Link href="register">Register</Link>
+            <Link href="/register">Register</Link>
           </div>
         </Form>
       )}

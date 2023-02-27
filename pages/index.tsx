@@ -1,6 +1,7 @@
 import ProductItem from "@/components/ProductItem";
 import db from "@/utils/db";
-import productModel, { ProductTypeMongo } from "@/utils/product";
+import { ProductTypeMongo } from "@/utils/data";
+import productModel from "@/utils/product";
 
 export default function Home({ products }: { products: ProductTypeMongo[] }) {
   return (
