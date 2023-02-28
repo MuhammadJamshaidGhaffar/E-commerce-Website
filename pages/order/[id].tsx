@@ -1,4 +1,3 @@
-import checkout from "@/functions/stripe-checkout";
 import { getError } from "@/utils/get-error";
 import { orderType } from "@/utils/order";
 import Image from "next/image";
@@ -57,7 +56,7 @@ export default function OrderScreen() {
       }
     }
     fetchOrder();
-  }, []);
+  }, [orderId]);
 
   return (
     <div>

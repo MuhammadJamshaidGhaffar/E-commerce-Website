@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { incItemAsync } from "@/store/reducer";
-import { ProductTypeMongo } from "@/utils/product";
+import { ProductTypeMongo } from "@/utils/data";
 
 const ProductItem: React.FC<{ product: ProductTypeMongo }> = ({ product }) => {
   const dispatch = useDispatch();

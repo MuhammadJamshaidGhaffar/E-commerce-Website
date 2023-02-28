@@ -1,4 +1,4 @@
-import { setShippingAddress, ShippingAddressType } from "@/store/reducer";
+import { setShippingAddress } from "@/store/reducer";
 import { selectShippingAddress } from "@/store/store";
 import { Formik, Form, Field } from "formik";
 import { useDispatch, useSelector } from "react-redux";

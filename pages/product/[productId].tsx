@@ -1,7 +1,5 @@
-import { products } from "@/utils/data";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React from "react";
 import Head from "next/head";
 import { useDispatch } from "react-redux";
@@ -9,16 +7,17 @@ import { incItemAsync } from "@/store/reducer";
 import productModel from "@/utils/product";
 import db from "@/utils/db";
 import { GetServerSidePropsContext } from "next";
-import { ProductTypeMongo } from "..";
+import { ProductTypeMongo } from "@/utils/data";
 
 const ProductPage: React.FC<{
   product: ProductTypeMongo;
 }> = ({ product }) => {
+  const dispatch = useDispatch();
   if (!product) {
     return <div>The product you&apos;re looking for doesn&apos;t exits</div>;
   }
   console.log(product);
-  const dispatch = useDispatch();
+
   return (
     <>
       <Head>

@@ -1,7 +1,7 @@
 import { Menu } from "@headlessui/react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
-import Avatar from "@mui/material/Avatar";
+import { Avatar } from "@mui/material";
 import { useDispatch } from "react-redux";
 import type { Dispatch, AnyAction } from "@reduxjs/toolkit";
 import { resetCart } from "@/store/reducer";
@@ -25,15 +25,15 @@ export default function AvatarMenu() {
       <Menu.Button className="text-blue-600 p-2">
         <Avatar
           sx={{ width: 30, height: 30 }}
-          alt={session?.user?.name}
-          src={session?.user?.image}
+          alt={session?.user?.name || ""}
+          src={session?.user?.image || ""}
         />
       </Menu.Button>
 
       <Menu.Items className="absolute right-0 w-56 origin-top-right bg-white shadow-lg z-10">
         {menuItems.map((item) => (
           <Menu.Item key={item.label}>
-            {({ active }) =>
+            {() =>
               item.href ? (
                 <Link href={item.href} className="dropdown-link">
                   {item.label}

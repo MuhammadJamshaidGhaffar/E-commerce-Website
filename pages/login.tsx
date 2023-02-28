@@ -3,7 +3,6 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-import { toast } from "react-toastify";
 import { getError } from "@/utils/get-error";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -17,7 +16,7 @@ const loginSchema = Yup.object().shape({
     .max(30, "Too long!"),
 });
 
-export default function login() {
+export default function Login() {
   const { data: session } = useSession();
   const router = useRouter();
   const { redirect } = router.query;

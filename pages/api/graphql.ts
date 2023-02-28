@@ -1,4 +1,4 @@
-// index.ts
+/*
 import "reflect-metadata";
 import * as tq from "type-graphql";
 import { ApolloServer } from "apollo-server-micro";
@@ -28,3 +28,8 @@ export const config = {
 const server = await apolloServer.start();
 
 export default apolloServer.createHandler({ path: "/api/graphql" });
+
+*/
+
+const adfasfasdf = {};
+export default adfasfasdf;

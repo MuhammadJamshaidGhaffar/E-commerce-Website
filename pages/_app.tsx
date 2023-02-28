@@ -1,7 +1,7 @@
 import Layout from "@/components/header/layout";
 import store from "@/store/store";
 import "@/styles/globals.css";
-import type { AppProps } from "next/app";
+// import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { persistor } from "@/store/store";
 import { PersistGate } from "redux-persist/integration/react";
@@ -10,11 +10,12 @@ import { useRouter } from "next/router";
 import { CircularProgress } from "@mui/material";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "@/Apollo-client";
+// import { NextComponentType } from "next";
 
 export default function App({
   Component,
   pageProps: { session, ...pageProps },
-}: AppProps) {
+}: any) {
   return (
     <>
       <ApolloProvider client={client}>
@@ -38,9 +39,9 @@ export default function App({
   );
 }
 
-function Auth({ children }) {
+function Auth({ children }: { children: any }) {
   const router = useRouter();
-  const { status, data: session } = useSession({
+  const { status } = useSession({
     required: true,
     onUnauthenticated() {
       router.push("/unauthorized?message=login Required");

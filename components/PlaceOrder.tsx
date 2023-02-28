@@ -19,7 +19,7 @@ type props = {
   updateStep: any;
 };
 
-export default function PlaceOrder({ step, updateStep }: props) {
+export default function PlaceOrder({ updateStep }: props) {
   const router = useRouter();
   const dispatch = useDispatch();
   const cart = useSelector(selectCart);

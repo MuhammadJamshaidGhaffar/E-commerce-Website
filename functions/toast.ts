@@ -1,4 +1,4 @@
-import { toast } from "react-toastify";
+import { Id, toast } from "react-toastify";
 
 const toastObj: { id: Id } = { id: 0 };
 

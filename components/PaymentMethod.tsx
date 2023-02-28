@@ -1,9 +1,5 @@
-import {
-  setPaymentMethod,
-  setShippingAddress,
-  ShippingAddressType,
-} from "@/store/reducer";
-import { selectPaymentMethod, selectShippingAddress } from "@/store/store";
+import { setPaymentMethod } from "@/store/reducer";
+import { selectPaymentMethod } from "@/store/store";
 import { Formik, Form, Field } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";

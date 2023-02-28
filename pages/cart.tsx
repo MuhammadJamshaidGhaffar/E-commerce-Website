@@ -18,7 +18,7 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import EmptyCart from "@/components/EmptyCart";
 
-export default function cart() {
+export default function Cart() {
   const router = useRouter();
   const cart = useSelector(selectCart);
   const cartLength = getCartItemsLength(cart);
