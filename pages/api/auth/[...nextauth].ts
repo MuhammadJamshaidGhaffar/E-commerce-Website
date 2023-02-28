@@ -20,7 +20,6 @@ export default NextAuth({
           bycryptjs.compareSync(credentials.password, user.password)
         ) {
           return {
-            id: user._id,
             _id: user._id,
             email: user.email,
             name: user.name,
@@ -35,6 +34,7 @@ export default NextAuth({
   session: {
     strategy: "jwt",
   },
+  secret: process.env.NEXT_PUBLIC_SECRET,
   callbacks: {
     async jwt({ token, user }) {
       // console.log("Inside token : ", token, user);
