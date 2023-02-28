@@ -1,9 +1,10 @@
+import checkout from "@/functions/stripe-checkout";
 import { getError } from "@/utils/get-error";
 import { orderType } from "@/utils/order";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer } from "react";
 
 type initialStateType = {
   loading: boolean;
@@ -38,10 +39,6 @@ export default function OrderScreen() {
   const router = useRouter();
   const orderId = router.query.id;
 
-  const [itemsPrice, updateItemsPrice] = useState(0);
-  const [taxPrice, updateTaxPrice] = useState(0);
-  const [shippingPrice, updateShippingPrice] = useState(0);
-  const [totalPrice, updateTotalPrice] = useState(0);
   const [{ loading, error, order }, dispatch] = useReducer(
     reducer,
     initialState
@@ -53,8 +50,8 @@ export default function OrderScreen() {
       try {
         const response = await fetch(`/api/orders/${orderId}`);
         const data: orderType = await response.json();
+        console.log(data);
         dispatch({ type: "FETCH_SUCCESS", payload: data });
-        updatePrices();
       } catch (err) {
         dispatch({ type: "FETCH_FAIL", payload: getError(err) });
       }
@@ -62,17 +59,6 @@ export default function OrderScreen() {
     fetchOrder();
   }, []);
 
-  const round2 = (num: number) => Math.round(num * 100 + Number.EPSILON) / 100;
-  const updatePrices = () => {
-    if (order) {
-      updateItemsPrice(
-        order.orderItems.reduce((a, b) => a + b.quantity * b.price, 0)
-      );
-      updateTaxPrice(round2(itemsPrice * 0.15));
-      updateShippingPrice(itemsPrice > 200 ? 0 : 15);
-      updateTotalPrice(round2(itemsPrice + taxPrice + shippingPrice));
-    }
-  };
   return (
     <div>
       <h1 className="mb-4 text-xl">{orderId}</h1>
@@ -153,27 +139,45 @@ export default function OrderScreen() {
               <li>
                 <div className="mb-2 flex justify-between">
                   <div>Items</div>
-                  <div>${itemsPrice}</div>
+                  <div>${order.itemsPrice}</div>
                 </div>
               </li>
               <li>
                 <div className="mb-2 flex justify-between">
                   <div>Tax</div>
-                  <div>${taxPrice}</div>
+                  <div>${order.taxPrice}</div>
                 </div>
               </li>
               <li>
                 <div className="mb-2 flex justify-between">
                   <div>Shipping</div>
-                  <div>${shippingPrice}</div>
+                  <div>${order.shippingPrice}</div>
                 </div>
               </li>
               <li>
                 <div className="mb-2 flex justify-between">
                   <div>Total</div>
-                  <div>${totalPrice}</div>
+                  <div>${order.totalPrice}</div>
                 </div>
               </li>
+
+              {order.paymentMethod != "CashOnDelivery" ? (
+                <li>
+                  <button
+                    className="primary-button w-full"
+                    onClick={async () => {
+                      const response = await (
+                        await fetch(`/api/orders/${orderId}/pay`)
+                      ).json();
+                      window.location.href = response.url;
+                    }}
+                  >
+                    Pay with {order.paymentMethod}
+                  </button>
+                </li>
+              ) : (
+                ""
+              )}
             </ul>
           </div>
         </div>

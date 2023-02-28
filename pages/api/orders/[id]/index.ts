@@ -11,7 +11,12 @@ export default async function handler(
   if (!session) return res.status(401).send("Signin Required");
 
   await db.connect();
-  const order = await orderModel.findById(req.query.id);
+  const { id } = req.query;
+
+  const order = db.convertDocToObj(
+    await orderModel.findOne({ _id: id }).lean()
+  );
+
   await db.disconnect();
-  res.send(order);
+  res.json(order);
 }
