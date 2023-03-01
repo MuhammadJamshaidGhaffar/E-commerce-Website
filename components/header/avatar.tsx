@@ -13,7 +13,7 @@ function handleLogout(dispatch: Dispatch<AnyAction>) {
 
 const menuItems = [
   { label: "Profile", href: "/profile" },
-  { label: "Order History", href: "/orders" },
+  { label: "Order History", href: "/orders-history" },
   { label: "Logout", onClick: handleLogout },
 ];
 

@@ -30,6 +30,13 @@ export type orderType = {
   deliveredAt: Date;
 };
 
+export type orderTypeMongo = orderType & {
+  _id: string;
+  __v: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export const orderSchema = new mongoose.Schema<orderType>(
   {
     user: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true },
