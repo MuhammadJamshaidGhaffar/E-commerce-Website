@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import Link from "next/link";
 import { getError } from "@/utils/get-error";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";

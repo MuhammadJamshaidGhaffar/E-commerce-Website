@@ -36,10 +36,7 @@ function reducer(state, action): initialStateType {
 }
 
 export default function OrderHistory() {
-  const [{ loading, error, orders }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
+  const [{ loading, orders }, dispatch] = useReducer(reducer, initialState);
   useEffect(() => {
     async function fetchOrders() {
       try {
