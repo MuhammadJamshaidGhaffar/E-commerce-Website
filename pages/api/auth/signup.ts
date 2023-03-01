@@ -7,7 +7,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method != "POST") return;
+  if (req.method != "POST")
+    return res.status(400).send({ message: `${req.method} not supported` });
 
   const { name, email, password } = req.body;
   if (
@@ -16,11 +17,10 @@ export default async function handler(
     !email.includes("@") ||
     !password ||
     password.length < 5
-  ) {
-    res.status(422).json({
+  )
+    return res.status(422).json({
       message: "Validation error",
     });
-  }
 
   await db.connect();
 
