@@ -4,8 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import stripe from "stripe";
 
 const stripeSecretKey = process.env.STRIPE_API_KEY;
-// const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-const stripeWebhookSecret = "whsec_46KMnxT40ILwUjUapLLRS1Bg9nJJGZKp";
+const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 const stripeClient = new stripe(stripeSecretKey, {
   apiVersion: "2022-11-15",

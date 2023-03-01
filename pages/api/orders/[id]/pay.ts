@@ -38,8 +38,8 @@ export default async function handler(
         },
       ],
       mode: "payment",
-      success_url: `${process.env.HOST}/api/success`,
-      cancel_url: `${process.env.HOST}/api/cancel`,
+      success_url: `${process.env.HOST}/order/${id}`,
+      cancel_url: `${process.env.HOST}/order/${id}`,
       metadata: {
         orderId: id,
       },
