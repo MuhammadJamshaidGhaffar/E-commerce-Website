@@ -22,7 +22,7 @@ export default async function handler(
         msg: "Invalid order Id",
       });
     }
-    console.log(order.totalPrice);
+    // console.log(order.totalPrice);
 
     const session = await stripe.checkout.sessions.create({
       line_items: [
@@ -40,9 +40,9 @@ export default async function handler(
       mode: "payment",
       success_url: `${process.env.HOST}/api/success`,
       cancel_url: `${process.env.HOST}/api/cancel`,
-      //   metadata: {
-      //     webhook_url: 'https://example.com/api/webhook',
-      //   },
+      metadata: {
+        orderId: id,
+      },
     });
 
     res.status(303).json({

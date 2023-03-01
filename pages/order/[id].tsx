@@ -163,15 +163,22 @@ export default function OrderScreen() {
               {order.paymentMethod != "CashOnDelivery" ? (
                 <li>
                   <button
-                    className="primary-button w-full"
+                    className={`${
+                      order.isPaid
+                        ? "primary-button-disabled"
+                        : "primary-button"
+                    } w-full`}
                     onClick={async () => {
                       const response = await (
                         await fetch(`/api/orders/${orderId}/pay`)
                       ).json();
                       window.location.href = response.url;
                     }}
+                    disabled={order.isPaid}
                   >
-                    Pay with {order.paymentMethod}
+                    {order.isPaid
+                      ? "Already Paid"
+                      : `Pay with ${order.paymentMethod}`}
                   </button>
                 </li>
               ) : (
